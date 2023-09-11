@@ -26,7 +26,7 @@ class OTPVerifyView(APIView):
         
         if code == None:
             return Response ({
-                "error": "Ticket is not valid or expired"
+                "error": "Code is not valid or expired"
             }, status.HTTP_400_BAD_REQUEST)
             
         if code != data["code"]:

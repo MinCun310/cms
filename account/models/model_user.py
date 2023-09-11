@@ -24,8 +24,8 @@ class UserModel(AbstractUser):
     two_fa_secret = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = []
     
     class Meta:
         app_label = 'account'
@@ -41,7 +41,7 @@ class UserModel(AbstractUser):
             Khi tạo 1 user mới, thì thay đổi username, email thành viết thường
         """
         if not self.id:
-            self.username = self.email[0:6] + get_random_string(10)
+            self.username = self.email.split('@')[0]
             self.username = self.username.lower()
             if self.email:
                 self.email = self.email.lower()
@@ -49,3 +49,5 @@ class UserModel(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    

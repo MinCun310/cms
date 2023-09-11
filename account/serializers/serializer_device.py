@@ -4,4 +4,4 @@ from ..models import DeviceModel
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceModel
-        fields = '__all__'
+        fields = "__all__"

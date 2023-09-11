@@ -17,12 +17,13 @@ class RegisterView(APIView):
         print(request.data)
         # request.data là data truyền từ client về vd: dùng postman (POST) giả lập data truyền từ client về
         serializer = RegisterSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            return Response({
-                "Message":"invalid data",
-                "Error_fields": serializer.errors,
-            }, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        
+        # if not serializer.is_valid():
+        #     return Response({
+        #         "Message":"invalid data",
+        #         "Error_fields": serializer.errors,
+        #     }, status=status.HTTP_400_BAD_REQUEST)
         
         serializer.save()
         
