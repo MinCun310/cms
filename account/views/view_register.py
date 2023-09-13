@@ -27,6 +27,10 @@ class RegisterView(APIView):
         
         serializer.save()
         
+        # user=UserModel.objects.get(email=serializer.data['email'])
+        # user_rep = OldPasswords.objects.create(user=user, pwd=user.password)
+        # user_rep.save()
+        
         return Response({
             "message":"Registered successfully",
             "data": {

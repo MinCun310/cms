@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ..config import MYROLE
 import uuid
+
 app_name='account'
 
 def get_random_string(string_length=10):
@@ -50,4 +51,7 @@ class UserModel(AbstractUser):
     def __str__(self):
         return self.username
     
+# class OldPasswords(models.Model):
+#     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+#     pwd = models.CharField(max_length=200)
     

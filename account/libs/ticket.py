@@ -53,7 +53,6 @@ def ticket_is_valid(ticket, session_ticket):
         return False
     return True
 
-
 def verify_ticket_with_otp(login_ticket, ticket, code):
     if login_ticket != f'{ticket}.{code}':
         return False

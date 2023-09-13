@@ -4,6 +4,7 @@ import re
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
+
 User =get_user_model()
 class SendMailToResetPasswordSerializer(serializers.Serializer):
     def validate_email(self,value):
@@ -11,6 +12,7 @@ class SendMailToResetPasswordSerializer(serializers.Serializer):
             User.objects.get(email=value)
         except Exception:
             raise serializers.ValidationError("User doesn't exists")
+        return value
     email = serializers.CharField()
     
     
@@ -30,7 +32,7 @@ class ResetPasswordSerializer(serializers.Serializer):
     
         validate_password(value)
         return value
-    
+
     password = serializers.CharField()
     confirm_password = serializers.CharField()
     

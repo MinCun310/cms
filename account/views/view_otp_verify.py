@@ -13,6 +13,8 @@ from ..libs.ticket import take_user_id_from_ticket
 
 from ..models import UserModel
 
+from ..config.constants import ERROR_CODE
+
 class OTPVerifyView(APIView):
     permission_classes = [AllowAny, ]
     
@@ -26,12 +28,14 @@ class OTPVerifyView(APIView):
         
         if code == None:
             return Response ({
-                "error": "Code is not valid or expired"
+                "message": "Code is expired",
+                'error_code': ERROR_CODE['OTP_EXPIRED']
             }, status.HTTP_400_BAD_REQUEST)
             
         if code != data["code"]:
             return Response ({
-                "error": "Invalid OTP code"
+                "message": "Invalid OTP code",
+                'error_code': ERROR_CODE['OTP_INVALID']
             }, status.HTTP_400_BAD_REQUEST)
             
         UserId = take_user_id_from_ticket(data["ticket"])
