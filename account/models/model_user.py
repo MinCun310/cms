@@ -25,6 +25,14 @@ class UserModel(AbstractUser):
     two_fa_secret = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    
+    name = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=200, null=True)
+    country = models.CharField(max_length=100, null=True)
+    state_region = models.CharField(max_length=100, null=True, name="state/region")
+    city = models.CharField(max_length=100, null=True)
+    zip_code = models.IntegerField(null=True ,name="zip/code")
+    about = models.CharField(max_length=500, null=True)
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = []
     
@@ -54,4 +62,3 @@ class UserModel(AbstractUser):
 # class OldPasswords(models.Model):
 #     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 #     pwd = models.CharField(max_length=200)
-    
