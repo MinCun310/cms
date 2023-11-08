@@ -8,33 +8,35 @@ from rest_framework import status
 from ..models import UserModel
 
 from ..serializers import RegisterSerializer
-from ..serializers import DeviceSerializer
-from ..libs.device import store_device
+
+# from ..serializers import DeviceSerializer
+# from ..libs.device import store_device
+
 
 class RegisterView(APIView):
-    
     def post(self, request):
         print(request.data)
         # request.data là data truyền từ client về vd: dùng postman (POST) giả lập data truyền từ client về
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
+
         # if not serializer.is_valid():
         #     return Response({
         #         "Message":"invalid data",
         #         "Error_fields": serializer.errors,
         #     }, status=status.HTTP_400_BAD_REQUEST)
-        
+
         serializer.save()
-        
+
         # user=UserModel.objects.get(email=serializer.data['email'])
         # user_rep = OldPasswords.objects.create(user=user, pwd=user.password)
         # user_rep.save()
-        
-        return Response({
-            "message":"Registered successfully",
-            "data": {
-                "user": serializer.data,
+
+        return Response(
+            {
+                "message": "Registered successfully",
+                "data": {
+                    "user": serializer.data,
+                },
             }
-        })
-        
+        )

@@ -18,3 +18,14 @@ ERROR_CODE = {
     'RATE_LIMIT_CLICK': 40012,
     'NOT_LOGIN_NO_ACCESS_TOKEN': 40013,
 }
+
+COUNTRY_CHOICES = [
+    ('us', 'United States'),
+    ('ca', 'Canada'),
+    ('uk', 'United Kingdom'),
+    ('au', 'Australia'),
+    ('fr', 'France'),
+    ('de', 'Germany'),
+    ('jp', 'Japan'),
+    ('vn', 'Viet Nam')
+]

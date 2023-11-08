@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ..config import MYROLE
+from ..config import COUNTRY_CHOICES
 import uuid
+import environ
+from django.conf import settings
+
+env = environ.Env()
+environ.Env.read_env()
 
 app_name='account'
 
@@ -19,7 +25,9 @@ class UserModel(AbstractUser):
     email_verified_at = models.CharField(max_length=50, null=True)
     phone = models.CharField(max_length=15, null=True)
     phone_verified_at = models.CharField(max_length=50, null=True)
-    avatar = models.CharField(max_length=255, null=True)
+    
+    avatar = models.ImageField(upload_to='accounts', null=True)
+    
     role = models.SmallIntegerField(default=MYROLE['MEMBER'])
     two_fa_enable_at = models.DateTimeField(null=True)
     two_fa_secret = models.CharField(max_length=255, null=True)
@@ -28,10 +36,10 @@ class UserModel(AbstractUser):
     
     name = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=200, null=True)
-    country = models.CharField(max_length=100, null=True)
+    country = models.CharField(max_length=10, choices=COUNTRY_CHOICES, default='')
     state_region = models.CharField(max_length=100, null=True, name="state/region")
     city = models.CharField(max_length=100, null=True)
-    zip_code = models.IntegerField(null=True ,name="zip/code")
+    zip_code = models.IntegerField(blank=True, null=True ,db_column='Zip Code')
     about = models.CharField(max_length=500, null=True)
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = []
@@ -45,6 +53,11 @@ class UserModel(AbstractUser):
             models.Index(fields=['email', 'id']),
         ]
         
+    @property
+    def avatar_url(self):
+        return env('DOMAIN_SITE') + settings.MEDIA_URL + str(self.avatar)
+    
+    
     def save(self, *args, **kwargs):
         """
             Khi tạo 1 user mới, thì thay đổi username, email thành viết thường

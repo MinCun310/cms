@@ -4,4 +4,5 @@ from .view_otp_verify import OTPVerifyView
 from .view_otp_refresh import OTPRefreshView
 from .view_reset_password import SendMailToResetPasswordView, ResetPasswordView
 from .view_my_account_info import MyAccountInfoView
-from .view_security import SecurityView
+from .view_change_password_profile import ChangePasswordView
+from .view_logout import LogoutViews
